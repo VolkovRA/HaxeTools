@@ -1,0 +1,11 @@
+{
+    "name": "tools",
+    "url": "https://github.com/VolkovRA/HaxeTools/blob/master/README.md",
+    "license": "MIT",
+    "tags": ["tools", "utils", "haxe"],
+    "description": "Вспомогательные утилиты",
+    "version": "1.0.0",
+    "releasenote": "Release",
+    "contributors": ["VolkovRA"],
+    "classPath": "lib"
+}
