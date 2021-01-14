@@ -572,7 +572,7 @@ class NativeJS
      * 
      * Пример:
      * ```
-     * mapKeys({"dog":1, "cat":true, "23":null }, ","); // Строка: "dog,cat,23"
+     * NativeJS.mapKeys({"dog":1, "cat":true, "23":null }, ","); // Строка: "dog,cat,23"
      * ```
      * @param map Хеш-мапа.
      * @param sep Символ разделителя.
