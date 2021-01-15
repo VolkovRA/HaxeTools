@@ -4,7 +4,7 @@
     "license": "MIT",
     "tags": ["tools", "utils", "haxe"],
     "description": "Вспомогательные утилиты",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "releasenote": "Release",
     "contributors": ["VolkovRA"],
     "classPath": "lib"
