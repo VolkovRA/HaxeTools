@@ -634,4 +634,45 @@ class NativeJS
     inline static public function jsonWrite(value:Dynamic):String {
         return Syntax.code('JSON.stringify({0})', value);
     }
+
+    /**
+     * Метод возвращает строку с языко-зависимым представлением числа.  
+     * Пример:
+     * ```
+     * var number = 123456.789;
+     * 
+     * // В Германии в качестве разделителя целой и дробной части используется запятая, а в качестве разделителя разрядов - точка
+     * trace(NativeJS.thous(number, 'de-DE'));
+     * // → 123.456,789
+     * 
+     * // В России в качестве разделителя целой и дробной части используется запятая, а в качестве разделителя разрядов - пробел
+     * trace(NativeJS.thous(number, 'ru-RU'));
+     * // → 123 456,789
+     * 
+     * // В большинстве арабоговорящих стран используют настоящие арабские цифры
+     * trace(NativeJS.thous(number, 'ar-EG'));
+     * // → ١٢٣٤٥٦٫٧٨٩
+     * 
+     * // В Индии используют разделители для тысяч/лакх/крор
+     * trace(NativeJS.thous(number, 'en-IN'));
+     * // → 1,23,456.789
+     * 
+     * // Ключ расширения nu запрашивает систему нумерации, например, китайскую десятичную
+     * trace(NativeJS.thous(number, 'zh-Hans-CN-u-nu-hanidec'));
+     * // → 一二三,四五六.七八九
+     * 
+     * // Если запрашиваемый язык может не поддерживаться, например
+     * // балийский, откатываемся на запасной язык, в данном случае индонезийский
+     * trace(NativeJS.thous(number, ['ban', 'id']));
+     * // → 123.456,789
+     * ```
+     * @param value Число.
+     * @return Строка, содержащая число, разбитое на тысячи.
+     * @see https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Number/toLocaleString
+     */
+    static public function thous(value:Float, ?locales:Dynamic):String {
+        if (locales == null)
+            return Syntax.code('{0}.toLocaleString()', value);
+        return Syntax.code('{0}.toLocaleString({1})', value, locales);
+    }
 }
