@@ -675,4 +675,58 @@ class NativeJS
             return Syntax.code('{0}.toLocaleString()', value);
         return Syntax.code('{0}.toLocaleString({1})', value, locales);
     }
+
+    /**
+     * Прочитать цвет.  
+     * Метод пытается интерпретировать переданное значение
+     * как цветовое значение.
+     * 
+     * Пример:
+     * ```
+     * // Все эти вызовы возвращают: 0
+     * trace(NativeJS.colorRGB(null));
+     * trace(NativeJS.colorRGB(""));
+     * trace(NativeJS.colorRGB(0));
+     * trace(NativeJS.colorRGB("0"));
+     * trace(NativeJS.colorRGB("-0"));
+     * trace(NativeJS.colorRGB(-10));
+     * trace(NativeJS.colorRGB("-10"));
+     * 
+     * // Все эти вызовы возвращают: 16711680 (0xFF0000)
+     * trace(NativeJS.colorRGB(16711680));
+     * trace(NativeJS.colorRGB(0xff0000));
+     * trace(NativeJS.colorRGB(" 16711680"));
+     * trace(NativeJS.colorRGB(" 0016711680"));
+     * trace(NativeJS.colorRGB(" 0xff0000"));
+     * trace(NativeJS.colorRGB(" #ff0000"));
+     * ```
+     * @param value Значение.
+     * @return Цвет.
+     */
+    static public function colorRGB(value:Dynamic):Int {
+        if (value == null)
+            return 0;
+
+        var v:Int = 0;
+        var s:String = Syntax.code('{0}+""', value);
+        var i:Int = s.indexOf("#");
+        if (i == -1) {
+            i = s.toLowerCase().indexOf("0x");
+            if (i == -1)
+                v = parseInt(s, 10);
+            else
+                v = parseInt(s.substring(i+2), 16);
+        }
+        else {
+            v = parseInt(s.substring(i+1), 16);
+        }
+
+        if (v > 0) {
+            if (Syntax.code('{0} === Infinity', v))
+                return Syntax.code('Number.MAX_SAFE_INTEGER');
+            return v;
+        }
+
+        return 0;
+    }
 }
