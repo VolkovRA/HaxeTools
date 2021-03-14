@@ -326,4 +326,31 @@ class Utils
             URL.revokeObjectURL(url);
         }, 0);
     }
+
+    /**
+     * Почистить массив. (Clean arr)  
+     * Возвращает копию массива, в которой отсутсвует
+     * указанное значение. Полезно для удаления `null`
+     * или других, не нужных элементов в массиве.
+     * - Исходный массив не изменяется.
+     * - Все элементы сдвигаются влево.
+     * @param arr Исходный массив.
+     * @param element Удаляемый элемент.
+     * @return Новый массив, в котором отсутствуют
+     *         значения: `element`
+     */
+    static public function ca<T:Array<Dynamic>>(arr:T, element:Dynamic = null):T {
+        var a = [];
+        var l = arr.length;
+        var i = 0;
+        var j = 0;
+        while (i < l) {
+            if (arr[i] == element) {
+                i ++;
+                continue;
+            }
+            a[j++] = arr[i++];
+        }
+        return untyped a;
+    }
 }
